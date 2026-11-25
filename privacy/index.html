@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>プライバシーポリシー — Memocampus</title>
+  <meta name="description" content="Memocampus（Chrome拡張機能およびWindows向けローカルコンポーネント）のプライバシーポリシーです。取り扱うデータ、ローカルVault暗号化、Privacy Gate、MCP連携、Chrome Web Store Limited Use方針について説明します。">
+  <link rel="canonical" href="https://memocampus.github.io/privacy/">
+  <link rel="alternate" hreflang="ja" href="https://memocampus.github.io/privacy/">
+  <link rel="alternate" hreflang="en" href="https://memocampus.github.io/en/privacy/">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../">
+        <span>Memocampus</span>
+        <span class="brand-version">v0.8.0 準備中</span>
+      </a>
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="../">トップ</a>
+        <a href="./" aria-current="page">プライバシーポリシー</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+        <a class="lang-switch" href="../en/privacy/" hreflang="en" lang="en">English</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <header class="doc-header">
+      <h1>Memocampus プライバシーポリシー</h1>
+      <p class="doc-meta">
+        対象製品：Memocampus（予定バージョン v0.8.0 ／ Chrome拡張機能 ID：<code>cdklofjfcjagkaclekmicliailmlnfla</code>）<br>
+        最終更新日：2026年11月25日（Chrome Web Store 申請準備版）
+      </p>
+    </header>
+
+    <nav class="toc" aria-label="目次">
+      <p class="toc-title">目次</p>
+      <ol>
+        <li><a href="#scope-operator">対象と運営者</a></li>
+        <li><a href="#data-handled">取り扱うデータ</a></li>
+        <li><a href="#recording-scope">記録開始と対象範囲</a></li>
+        <li><a href="#storage-encryption">保存場所と暗号化</a></li>
+        <li><a href="#privacy-gate">Privacy Gate（NeverSave と SaveButNoMcp）</a></li>
+        <li><a href="#mcp-external-ai">MCP と外部 AI サービス</a></li>
+        <li><a href="#developer-handling">開発元によるデータの取扱いと通信</a></li>
+        <li><a href="#management-deletion">データの管理・削除・バックアップ</a></li>
+        <li><a href="#cws-limited-use">Chrome Web Store User Data Policy（Limited Use）</a></li>
+        <li><a href="#updates-contact">ポリシーの変更とお問い合わせ</a></li>
+      </ol>
+    </nav>
+
+    <article class="policy-article">
+      <section id="scope-operator">
+        <h2>1. 対象と運営者</h2>
+        <p>
+          本プライバシーポリシー（以下「本ポリシー」）は、<strong>Memocampus</strong>（GitHub Organization：<a href="https://github.com/Memocampus">https://github.com/Memocampus</a>）が提供するソフトウェア「Memocampus」におけるユーザーデータの取扱いを定めるものです。
+        </p>
+        <p>
+          本ポリシーは、以下のコンポーネントに適用されます。
+        </p>
+        <ul>
+          <li>Memocampus Google Chrome 拡張機能（拡張機能 ID：<code>cdklofjfcjagkaclekmicliailmlnfla</code>）</li>
+          <li>Windows 向けローカルコンポーネント（Native Messaging Host、トレイ常駐補助、読み取り専用 MCP サーバー <code>memocampus-mcp</code>）</li>
+          <li>本公式サイト（<code>https://memocampus.github.io/</code>）</li>
+        </ul>
+        <p>
+          Memocampus v0.8.0 は現在 Chrome Web Store への審査申請準備中です。最終更新日は本ページ上部に記載のとおりです。
+        </p>
+      </section>
+
+      <section id="data-handled">
+        <h2>2. 取り扱うデータ</h2>
+        <p>
+          Memocampus が取り扱うデータは、すべて利用者自身の端末（ローカルVaultおよびローカル設定領域）に保存されます。自動記録されるデータと、利用者の明示的な操作により保存・入力されるデータは以下のとおり区別されます。
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>区分</th>
+                <th>取り扱うデータ項目</th>
+                <th>取得・保存の契機と補足</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>自動記録（訪問履歴）</td>
+                <td>閲覧URL、ページタイトル、閲覧日時（UTC）、ナビゲーション遷移情報（遷移種別・リダイレクトや新規タブ等のフラグ・遷移元訪問への参照）</td>
+                <td>利用者が記録開始を実行した後、通常ウィンドウのメインフレームで <code>http://</code> または <code>https://</code> ページの読み込みが完了した際に記録されます。</td>
+              </tr>
+              <tr>
+                <td>自動記録（ページメタデータ）</td>
+                <td><code>document.title</code>、<code>meta[name="description"]</code>、OGP属性（<code>og:title</code>、<code>og:description</code>、<code>og:site_name</code>、<code>og:image</code> のURL）、ファビコンURL、取得日時</td>
+                <td>Privacy Gate で記録が許可されたURLに限り、ページ属性のみを読み取ります。自動記録ではページ本文テキストは収集しません。</td>
+              </tr>
+              <tr>
+                <td>ユーザー操作による保存（タブスナップショット）</td>
+                <td>開いている通常タブのURL、タイトル、ウィンドウID・タブ順、ピン留め状態、記録日時</td>
+                <td>利用者がサイドパネルの「開いているタブを記録」操作を実行した際に記録されます（Privacy Gate の対象）。</td>
+              </tr>
+              <tr>
+                <td>ユーザー操作による保存（画像）</td>
+                <td>画像原本データ（PNG / JPEG / GIF / WebP / AVIF / BMP、最大32 MiB、SHA-256重複排除）、生成サムネイル（WebP / JPEG）、画像URL（<code>data:</code> URL の場合は種別接頭辞のみ）、掲載ページURL、フレームURL、保存日時、シークレットフラグ</td>
+                <td>利用者が右クリックメニューから明示的に画像を保存した際に記録されます。SVG 形式は非対応です。</td>
+              </tr>
+              <tr>
+                <td>ユーザー操作による保存（MHTMLページ）</td>
+                <td>MHTML スナップショット本体（<code>multipart/related</code>、最大128 MiB、SHA-256重複排除）、ページURL、ページタイトル、取得・保存日時</td>
+                <td>利用者が右クリックメニューから明示的にページを保存した際に <code>chrome.pageCapture.saveAsMHTML</code> で記録されます。シークレットタブでは保存できません。</td>
+              </tr>
+              <tr>
+                <td>ユーザー入力・設定データ</td>
+                <td>画像タグ（ローカル専用）、検索キーワード・日付フィルタ、Privacy Gate ルールおよびインポートしたCSVルール、カスタムVault保存先パス、Recovery Spell、バックアップ用パスワード（保存されません）</td>
+                <td>利用者がUI上で入力・設定した内容です。バックアップ用パスワードは暗号化処理にのみ使用し、保存しません。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="recording-scope">
+        <h2>3. 記録開始と対象範囲</h2>
+        <ul>
+          <li><strong>明示的な初回記録開始：</strong>インストール直後に自動記録が開始されることはありません。利用者がVaultを作成または選択し、初期設定から明示的に記録開始を実行するまで自動記録は行われません。また、記録開始時刻以前に開始されたナビゲーションは遡って記録されません。</li>
+          <li><strong>自動記録の対象外：</strong><code>http://</code> および <code>https://</code> 以外のスキーム（<code>chrome://</code>、<code>about:</code>、<code>file://</code>、<code>chrome-extension://</code> 等）、シークレット（Incognito）ウィンドウ、サブフレーム（iframe）、プリレンダリング中のページ、および SPA の <code>pushState</code> / <code>replaceState</code> 遷移は自動訪問記録の対象外です。</li>
+          <li><strong>Privacy Gate による制御：</strong>自動記録およびタブスナップショットは、キュー投入前・送信前・Native Host 保存前の各段階で Privacy Gate により判定されます。ポリシーが未初期化・破損・読込不能な場合はフェイルクローズ動作となり、新規の自動記録を停止してツールバーに警告を表示します。</li>
+          <li><strong>保存に失敗する場合：</strong>Native Messaging Host へ接続できない場合、非対応のURLやファイル形式、サイズ上限超過、シークレットタブでの制限、ディスク容量・アクセス権エラー、ポリシー読込エラー等により、記録または保存が失敗する場合があります。</li>
+        </ul>
+      </section>
+
+      <section id="storage-encryption">
+        <h2>4. 保存場所と暗号化</h2>
+        <ul>
+          <li><strong>ローカルVault：</strong>データは利用者のPC上の単一 SQLite ファイル（ローカルVault）に保存されます。<code>%LOCALAPPDATA%\Memocampus\memocampus.sqlite3</code> は初期設定時の既定候補パスであり、インストールや起動によって利用者の同意なく自動作成されることはありません。Vault は利用者が明示的に作成または既存ファイルを選択したときにのみ利用可能となり、設定済みの Vault ファイルが見つからない場合でも自動的に再作成は行いません。</li>
+          <li><strong>保存先の選択と制限：</strong>利用者はローカルフォルダを保存先に選択できます。ネットワークパス（UNC）・ネットワークドライブ・光学ドライブ・RAMディスク・実行ファイル配置フォルダは選択できません。OneDrive・Dropbox・Google Drive 等のクラウド同期フォルダ、リムーバブルドライブ、NTFS / ReFS 以外のファイルシステムは警告のうえ利用者の明示的な承認が必要です。</li>
+          <li><strong>SQLCipher 4 による暗号化：</strong>新規作成される暗号化Vault（既定）は SQLCipher 4 によりデータベース全体（閲覧履歴・メタデータ・画像・サムネイル・タグ・MHTMLページ）を暗号化します。一時作業領域もメモリ上（<code>PRAGMA temp_store = MEMORY</code>）で処理されます。</li>
+          <li><strong>Windows DPAPI と Recovery Spell：</strong>暗号化Vaultの鍵は、OS の暗号論的乱数から生成される43文字の「Recovery Spell（ふっかつのじゅもん）」とVault固有のソルトから HKDF-SHA256 により導出されます。Recovery Spell は作成時に一度だけ表示され、確認入力が完了するまで保存されません。日常利用では Windows DPAPI（ユーザー保護）で暗号化した鍵キャッシュ（<code>%LOCALAPPDATA%\Memocampus\keys\</code> 配下）を用いることで、毎回入力せずにVaultを開けます。</li>
+          <li><strong>暗号化の対象外と限界：</strong>平文モード（plain）を選択したVault、設定・ポリシーファイル（<code>config.json</code>、<code>policy.json</code>、<code>domain-approvals.json</code>）、URLやタイトルを含まない起動ログ、および Native Host へ送信待機中の一時キュー（<code>chrome.storage.local</code>）は SQLCipher の暗号化対象外です。<strong>暗号化は保存ファイルへの不正閲覧リスクを低減するものであり、同一 Windows ユーザー権限で動作するマルウェア、ロック解除された端末への直接アクセス、Recovery Spell の漏えい等、すべての脅威を防ぐものではありません。</strong></li>
+          <li><strong>バックアップと復元：</strong>通常バックアップ（暗号化Vaultの場合は Recovery Spell 検証を要する <code>.mcbackup</code>）およびパスワード保護バックアップ（Argon2id + XChaCha20-Poly1305）を作成できます。復元時は既存Vaultを上書きせず常に新しいVaultファイルを作成し、復元直後のMCP公開状態は未承認（<code>pending</code>）となります。</li>
+        </ul>
+      </section>
+
+      <section id="privacy-gate">
+        <h2>5. Privacy Gate（NeverSave と SaveButNoMcp）</h2>
+        <p>
+          Memocampus では、URL 単位でデータの記録と MCP 公開範囲を制御するため、役割の異なる2つの区分を提供しています。
+        </p>
+        <h3>NeverSave（Blind Zone）</h3>
+        <ul>
+          <li>認証画面、トークンやパスワード等の機密パラメータを含むURL、日本の行政ポータル（<code>*.myna.go.jp</code>、<code>*.nta.go.jp</code>）、Webメール、主要AIチャットサービス等の既定ルールおよび利用者が追加したカスタムルールが対象です。</li>
+          <li>一致するURLの<strong>自動訪問記録およびタブスナップショット記録を抑止</strong>し、送信待機キュー内に一致する未送信データがある場合は破棄します。</li>
+          <li>MCP からの参照時にも現行ルールで再判定されるため、一致する既存データは MCP に表示されません。</li>
+          <li><strong>重要な注意点：</strong>NeverSave ルールの追加・変更は<strong>すでに Vault に保存済みの記録を自動削除しません</strong>。また、利用者が右クリックメニューから意図的に行う<strong>画像の手動保存や MHTML ページの手動保存を全面的に禁止するものではありません</strong>。</li>
+        </ul>
+
+        <h3>SaveButNoMcp（Private Zone）</h3>
+        <ul>
+          <li>一致するURLの閲覧記録は<strong>ローカル Vault には通常どおり保存</strong>されます。</li>
+          <li>一方で、MCP サーバー（<code>VisibleStore</code>）が応答を生成する際は完全に除外され、検索結果・日別一覧・ドメイン集計・画像参照のいずれにも含まれません。</li>
+        </ul>
+      </section>
+
+      <section id="mcp-external-ai">
+        <h2>6. MCP と外部 AI サービス</h2>
+        <p>
+          ローカル Vault へのデータ保存と、MCP（Model Context Protocol）経由で外部 AI サービスへ情報が渡る挙動は明確に異なります。
+        </p>
+        <ul>
+          <li><strong>MCP への Vault 公開承認（オプトイン）：</strong>MCP の公開承認状態はアクティブな単一 Vault のファイル実体ごとに管理され、MCP クライアント側の接続設定とは独立しています。新規作成・未承認 Vault の選択・別 Vault への切替（以前に承認していた Vault へ戻す場合を含む）・バックアップからの復元・形式変換（平文／暗号化変換や Recovery Spell 再発行）・コピーや差し替えファイルの選択では、公開状態は常に <code>pending</code>（非公開）となり、利用者が Native Host を通じて明示的に公開承認しない限り MCP サーバーはデータを提供しません。現在アクティブな承認済み Vault と同一ファイルをそのまま開き直した場合に限り承認状態が維持されます。公開承認はいつでも取り消すことができ、取り消し後は直ちに非公開となり、開き直しても非公開のまま維持されます。</li>
+          <li><strong>読み取り専用の提供機能：</strong><code>memocampus-mcp</code> は厳格な読み取り専用であり、Vault への書き込みや設定変更は行いません。提供するツールは、公開訪問履歴の検索、日別訪問一覧、ドメイン別統計、公開設定済み画像のメタデータ検索、公開設定済み画像のサムネイル取得（最大 256 KiB）の5種類のみです。</li>
+          <li><strong>非公開データの保護：</strong><code>NeverSave</code> および <code>SaveButNoMcp</code> に一致する記録、公開設定されていない画像、シークレットウィンドウから保存された画像（MCP 公開不可）、画像原本データ、画像タグ、タブスナップショット、ナビゲーション遷移情報、および保存済み MHTML ページは MCP に提供されません。</li>
+          <li><strong>MCP クライアントおよび外部 AI プロバイダーへの転送可能性：</strong>利用者が MCP 公開を承認し、外部の MCP クライアント（デスクトップ AI アプリ等）を接続してクエリを実行した場合、MCP ツールが返した閲覧URL・タイトル・メタデータ・画像サムネイル等の情報は当該 MCP クライアントへ渡され、<strong>そのクライアントを通じて外部の AI モデル提供者やクラウドサービスへ送信・処理される可能性があります</strong>。</li>
+          <li><strong>Memocampus 側で制御できる範囲：</strong>Memocampus が制御できるのは、ローカルの MCP サーバーからどのデータを返すかまでです。MCP クライアントが受け取った後のデータの送信先、保存期間、学習利用の有無、セキュリティ管理については、各 MCP クライアントおよび AI プロバイダーの規約・プライバシーポリシーに従い、Memocampus 側では制御できません。</li>
+        </ul>
+      </section>
+
+      <section id="developer-handling">
+        <h2>7. 開発元によるデータの取扱いと通信</h2>
+        <p>
+          現行の製品コード（拡張機能、Native Messaging Host、VisibleStore、MCP サーバー、トレイ常駐補助、インストーラー）および本公式サイトの実装に基づき、開発元によるデータの取扱いと通信方針を以下のとおり説明します。
+        </p>
+        <ul>
+          <li><strong>開発元サーバーへの送信：</strong>開発元が運営するサーバーへ、利用者の閲覧履歴・画像・MHTML・Vault データを収集または送信する機能は実装していません。</li>
+          <li><strong>分析・テレメトリー・広告・販売：</strong>アクセス解析、テレメトリー送信、行動追跡、Cookie によるトラッキング、広告配信、およびユーザーデータの第三者への販売は行いません。本公式サイトにも外部CDN・外部フォント・解析スクリプトは導入していません。</li>
+          <li><strong>実装上確認されている通信および外部との接点：</strong>
+            <ul>
+              <li>利用者が右クリックから画像を手動保存する際、画像バイト列を取得するため拡張機能から対象画像URLへ <code>fetch</code> リクエストを行う場合があります。</li>
+              <li>利用者がオプションで Streamable HTTP モードの MCP サーバーを有効にした場合、ループバックアドレス（<code>127.0.0.1</code> または <code>[::1]</code>）のみでローカル待受を行います（Bearer トークン認証必須、<code>Origin</code> ヘッダ拒否、CORS なし）。</li>
+              <li>利用者が MCP クライアントを接続した場合、そのクライアントが外部 AI サービスと通信することがあります。</li>
+              <li>その他、Google Chrome 自体の通信（通常のWeb閲覧、Chrome Web Store による拡張機能更新等）や、利用者が Vault 保存先としてクラウド同期フォルダを承認した場合の同期通信は、Memocampus の制御外で発生します。</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section id="management-deletion">
+        <h2>8. データの管理・削除・バックアップ</h2>
+        <ul>
+          <li><strong>利用者による管理と削除：</strong>利用者は拡張機能のUIから、単一の訪問履歴、検索条件に一致する訪問履歴、特定URLの関連記録、保存済み画像（個別・タグ指定・全件）、および保存済み MHTML ページを、削除プレビュー確認のうえで削除できます。削除はゴミ箱を経由せず即時に実行されます（SQLite の <code>VACUUM</code> は自動実行されません）。</li>
+          <li><strong>削除後のデータ残存について：</strong>アプリケーション上での削除操作と、記録媒体（SSD・HDD等）からの完全な物理消去は異なります。Memocampus は SQLite の標準的な <code>DELETE</code> 処理（ロールバックジャーナルモード <code>DELETE</code>）を使用しており、<code>VACUUM</code> や <code>secure_delete</code> による上書き消去を自動実行しないため、削除前のデータが Vault ファイル内の未使用領域（空きページ）に将来の書き込みで上書きされるまで残る場合や、トランザクション処理中に一時的なロールバックジャーナルへ残る場合があります。残存データの保護状態は Vault の形式によって異なり、暗号化 Vault（SQLCipher 4）では空きページやジャーナルも含めて暗号化されますが（Vault 鍵を持つ場合は復元の余地があります）、平文 Vault では平文のまま残る可能性があります。なお、Memocampus の通常の削除操作は記録媒体上の安全な物理消去を保証するものではありません。</li>
+          <li><strong>バックアップへの残存：</strong>アクティブな Vault からデータを削除しても、過去に作成された独立したバックアップファイル（<code>.sqlite3</code> / <code>.mcbackup</code>）内のデータは変更・削除されません。必要に応じて利用者自身でバックアップファイルを削除してください。</li>
+          <li><strong>アンインストールと Vault の関係：</strong>Windows インストーラーから Memocampus をアンインストールすると、実行ファイル、トレイ自動起動設定、Native Messaging 登録は削除されますが、利用者のデータ保護のため <strong>Vault ファイルおよび <code>%LOCALAPPDATA%\Memocampus</code> 内のデータは自動削除されません</strong>。Vault ファイルを完全に削除する場合は、エクスプローラー等から手動で削除してください。</li>
+        </ul>
+      </section>
+
+      <section id="cws-limited-use">
+        <h2>9. Chrome Web Store User Data Policy（Limited Use）</h2>
+        <p>
+          Memocampus の Chrome 拡張機能は、Google Chrome の拡張機能 API を通じてアクセスする情報（閲覧URL、タブ情報、ページメタデータ、利用者操作による画像・MHTML データ）を、利用者に明示された機能——すなわち、ローカル Vault への記録・検索・整理・アーカイブ、および利用者が明示的に承認した場合のローカル読み取り専用 MCP 連携——を提供および維持する目的にのみ使用します。
+        </p>
+        <ul>
+          <li>取得したユーザーデータを広告配信、パーソナライズ、信用評価、データブローカーへの提供、その他本来の機能と無関係な目的には使用しません。</li>
+          <li>ユーザーデータを第三者へ販売・譲渡しません。なお、利用者が自ら MCP 公開を承認し外部 MCP クライアントを接続した場合には、第6章に記載のとおり当該クライアントへデータが引き渡されます。</li>
+          <li>ユーザーデータは利用者のローカル端末に保持され、開発者側の人間が利用者の Vault データを閲覧することはありません。</li>
+        </ul>
+        <div class="callout">
+          <p>
+            The use of information received from Google APIs will adhere to the Chrome Web Store User Data Policy, including the Limited Use requirements.<br>
+            （Google API から受け取る情報の使用は、Limited Use 要件を含む Chrome Web Store User Data Policy に準拠します。）
+          </p>
+        </div>
+      </section>
+
+      <section id="updates-contact">
+        <h2>10. ポリシーの変更とお問い合わせ</h2>
+        <ul>
+          <li><strong>更新日と告知方法：</strong>機能追加や法令・ストアポリシーの改定等に応じて本ポリシーを改定する場合があります。改定時は本ページの最終更新日を更新して公開し、重要な変更がある場合は GitHub Organization またはリリースノート等で告知します。</li>
+          <li><strong>お問い合わせ先：</strong>本ポリシーおよび Memocampus に関するお問い合わせは、<a href="mailto:memocampus.dev@gmail.com">memocampus.dev@gmail.com</a> までご連絡ください。プロジェクト情報は GitHub Organization（<a href="https://github.com/Memocampus">https://github.com/Memocampus</a>）でも公開しています。</li>
+        </ul>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>Copyright &copy; 2026 Memocampus</div>
+      <div class="footer-links">
+        <a href="../">トップ</a>
+        <a href="./">プライバシーポリシー</a>
+        <a href="../en/privacy/" hreflang="en" lang="en">English</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

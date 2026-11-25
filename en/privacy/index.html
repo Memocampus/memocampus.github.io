@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy Policy — Memocampus</title>
+  <meta name="description" content="Privacy Policy for Memocampus (Chrome extension and local Windows companion components), covering data handled, local Vault encryption, Privacy Gate, MCP integration, and Chrome Web Store Limited Use.">
+  <link rel="canonical" href="https://memocampus.github.io/en/privacy/">
+  <link rel="alternate" hreflang="ja" href="https://memocampus.github.io/privacy/">
+  <link rel="alternate" hreflang="en" href="https://memocampus.github.io/en/privacy/">
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="../">
+        <span>Memocampus</span>
+        <span class="brand-version">v0.8.0 Pre-release</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="../">Home</a>
+        <a href="./" aria-current="page">Privacy Policy</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+        <a class="lang-switch" href="../../privacy/" hreflang="ja" lang="ja">日本語</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <header class="doc-header">
+      <h1>Memocampus Privacy Policy</h1>
+      <p class="doc-meta">
+        Product: Memocampus (Planned Version v0.8.0 / Chrome Extension ID: <code>cdklofjfcjagkaclekmicliailmlnfla</code>)<br>
+        Last Updated: November 25, 2026 (Pre-submission draft for Chrome Web Store)
+      </p>
+    </header>
+
+    <nav class="toc" aria-label="Table of contents">
+      <p class="toc-title">Table of Contents</p>
+      <ol>
+        <li><a href="#scope-operator">Scope and Operator</a></li>
+        <li><a href="#data-handled">Data Handled</a></li>
+        <li><a href="#recording-scope">Recording Start and Scope</a></li>
+        <li><a href="#storage-encryption">Storage Location and Encryption</a></li>
+        <li><a href="#privacy-gate">Privacy Gate (NeverSave and SaveButNoMcp)</a></li>
+        <li><a href="#mcp-external-ai">MCP and External AI Services</a></li>
+        <li><a href="#developer-handling">Developer Data Handling and Network Activity</a></li>
+        <li><a href="#management-deletion">Data Management, Deletion, and Backups</a></li>
+        <li><a href="#cws-limited-use">Chrome Web Store User Data Policy (Limited Use)</a></li>
+        <li><a href="#updates-contact">Policy Updates and Contact</a></li>
+      </ol>
+    </nav>
+
+    <article class="policy-article">
+      <section id="scope-operator">
+        <h2>1. Scope and Operator</h2>
+        <p>
+          This Privacy Policy ("Policy") explains how <strong>Memocampus</strong> (GitHub Organization: <a href="https://github.com/Memocampus">https://github.com/Memocampus</a>) handles user data in the Memocampus software.
+        </p>
+        <p>
+          This Policy applies to the following components:
+        </p>
+        <ul>
+          <li>The Memocampus Google Chrome extension (Extension ID: <code>cdklofjfcjagkaclekmicliailmlnfla</code>)</li>
+          <li>The local Windows companion components (Native Messaging Host, tray supervisor, and read-only MCP server <code>memocampus-mcp</code>)</li>
+          <li>This official website (<code>https://memocampus.github.io/</code>)</li>
+        </ul>
+        <p>
+          Memocampus v0.8.0 is currently being prepared for Chrome Web Store review. The last updated date is shown at the top of this page.
+        </p>
+      </section>
+
+      <section id="data-handled">
+        <h2>2. Data Handled</h2>
+        <p>
+          All data handled by Memocampus is stored locally on your own device (in your local Vault and local configuration directory). Automatically recorded data and data saved or entered through explicit user actions are distinguished as follows:
+        </p>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Data Items</th>
+                <th>Trigger and Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Automatic Recording (Visits)</td>
+                <td>Visited URL, page title, visit timestamp (UTC), and navigation transition metadata (transition type, redirect/new-tab/forward-back flags, and reference to source visit)</td>
+                <td>Recorded when a main-frame <code>http://</code> or <code>https://</code> page finishes loading in a standard window after you explicitly start recording.</td>
+              </tr>
+              <tr>
+                <td>Automatic Recording (Page Metadata)</td>
+                <td><code>document.title</code>, <code>meta[name="description"]</code>, Open Graph attributes (<code>og:title</code>, <code>og:description</code>, <code>og:site_name</code>, <code>og:image</code> URL), favicon URL, and capture timestamp</td>
+                <td>Read only after Privacy Gate allows the URL, inspecting HTML metadata attributes only. Automatic recording does not collect page body text.</td>
+              </tr>
+              <tr>
+                <td>User-Initiated Save (Tab Snapshots)</td>
+                <td>URL, title, window ID, tab index, pinned state, and timestamp of open non-incognito tabs</td>
+                <td>Recorded when you click the "Record all tabs" action in the side panel (subject to Privacy Gate).</td>
+              </tr>
+              <tr>
+                <td>User-Initiated Save (Images)</td>
+                <td>Original image bytes (PNG, JPEG, GIF, WebP, AVIF, BMP; up to 32 MiB; deduplicated by SHA-256), generated thumbnail (WebP/JPEG), image URL (for <code>data:</code> URLs, only the subtype prefix is stored), page URL, frame URL, saved timestamp, and incognito flag</td>
+                <td>Recorded when you explicitly save an image via the context menu. SVG images are not supported.</td>
+              </tr>
+              <tr>
+                <td>User-Initiated Save (MHTML Pages)</td>
+                <td>MHTML snapshot bytes (<code>multipart/related</code>; up to 128 MiB; deduplicated by SHA-256), page URL, page title, and capture/save timestamps</td>
+                <td>Recorded via <code>chrome.pageCapture.saveAsMHTML</code> when you explicitly save a page via the context menu. Refused in incognito tabs.</td>
+              </tr>
+              <tr>
+                <td>User Input &amp; Configuration</td>
+                <td>Image tags (local-only), search queries and date filters, Privacy Gate rules and imported CSV rules, custom Vault paths, Recovery Spell, and backup passwords (never stored)</td>
+                <td>Data entered or configured by you in the UI. Backup passwords are used only during encryption/decryption and are never saved.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="recording-scope">
+        <h2>3. Recording Start and Scope</h2>
+        <ul>
+          <li><strong>Explicit First-Time Start:</strong> Automatic recording does not start upon installation. You must create or select a Vault and explicitly start recording during onboarding. Navigations started before the recording start timestamp are not backfilled.</li>
+          <li><strong>Excluded from Automatic Recording:</strong> Non-<code>http://</code>/<code>https://</code> schemes (such as <code>chrome://</code>, <code>about:</code>, <code>file://</code>, and <code>chrome-extension://</code>), incognito windows, subframes (iframes), prerendered pages, and SPA <code>pushState</code>/<code>replaceState</code> transitions are excluded from automatic visit recording.</li>
+          <li><strong>Privacy Gate Enforcement:</strong> Automatic visits and tab snapshots are checked by Privacy Gate before queueing, before flushing, and in the Native Host before storage. If the policy is uninitialized, corrupted, or unreadable, Privacy Gate fails closed—halting new automatic recording and displaying a warning badge on the extension icon.</li>
+          <li><strong>When Saving May Fail:</strong> Recording or saving can fail if the Native Messaging Host is unreachable, the URL or format is unsupported, size limits are exceeded, incognito restrictions apply, disk/permission errors occur, or the policy cannot be read.</li>
+        </ul>
+      </section>
+
+      <section id="storage-encryption">
+        <h2>4. Storage Location and Encryption</h2>
+        <ul>
+          <li><strong>Local Vault:</strong> Data is stored in a single SQLite file (local Vault) on your PC. <code>%LOCALAPPDATA%\Memocampus\memocampus.sqlite3</code> is only a suggested default path during setup and is never created automatically upon installation or startup without your action. A Vault becomes active only when you explicitly create one or select an existing file, and if a configured Vault file goes missing, Memocampus will not recreate it automatically.</li>
+          <li><strong>User-Selected Locations &amp; Restrictions:</strong> You may select a custom local folder. Network paths (UNC), network drives, optical drives, RAM disks, and the application executable directory are rejected. Cloud-synced folders (such as OneDrive, Dropbox, or Google Drive), removable drives, and non-NTFS/ReFS filesystems require a warning and explicit user approval.</li>
+          <li><strong>SQLCipher 4 Encryption:</strong> Newly created encrypted Vaults (the default) encrypt the entire database (visits, metadata, images, thumbnails, tags, and MHTML pages) using SQLCipher 4, with temporary database operations kept in memory (<code>PRAGMA temp_store = MEMORY</code>).</li>
+          <li><strong>Windows DPAPI and Recovery Spell:</strong> The Vault encryption key is derived via HKDF-SHA256 from a vault-specific salt and a 43-character Recovery Spell generated from OS cryptographic randomness. The Recovery Spell is shown once at creation and must be confirmed before committing. For daily use, a Windows user-scoped DPAPI-protected key cache (under <code>%LOCALAPPDATA%\Memocampus\keys\</code>) allows opening the Vault without re-entering the Recovery Spell each time.</li>
+          <li><strong>Unencrypted Items &amp; Security Limits:</strong> Plain-mode Vaults (if selected), configuration and policy files (<code>config.json</code>, <code>policy.json</code>, <code>domain-approvals.json</code>), startup logs (which do not include URLs or titles), and transient queued events in <code>chrome.storage.local</code> awaiting host delivery are not encrypted by SQLCipher. <strong>Encryption reduces the risk of unauthorized reading of the Vault file at rest, but it does not protect against all threats—such as malware running under the same Windows user account, direct access to an unlocked device, or a leaked Recovery Spell.</strong></li>
+          <li><strong>Backup and Restore:</strong> Memocampus supports standard backups (for encrypted Vaults, <code>.mcbackup</code> requiring Recovery Spell verification) and password-protected backups (Argon2id + XChaCha20-Poly1305). Restoring always creates a new Vault file without overwriting existing ones, and MCP publication starts as <code>pending</code> (closed).</li>
+        </ul>
+      </section>
+
+      <section id="privacy-gate">
+        <h2>5. Privacy Gate (NeverSave and SaveButNoMcp)</h2>
+        <p>
+          Memocampus provides two distinct URL rule zones to control local recording and MCP visibility separately:
+        </p>
+        <h3>NeverSave (Blind Zone)</h3>
+        <ul>
+          <li>Includes built-in rules for authentication pages, URLs containing credential parameters (such as tokens or passwords), Japanese government portals (<code>*.myna.go.jp</code>, <code>*.nta.go.jp</code>), webmail, and major AI chat services, plus your custom rules.</li>
+          <li><strong>Suppresses automatic visit recording and tab snapshots</strong> for matching URLs, and purges matching unsent events from the pending queue.</li>
+          <li>MCP queries also re-evaluate existing records against the current policy, so matching records are hidden from MCP.</li>
+          <li><strong>Important Notice:</strong> Adding or changing a NeverSave rule does <strong>not</strong> automatically delete records already stored in the Vault, and does <strong>not</strong> block explicit manual image saving or manual MHTML page saving triggered by you from the context menu.</li>
+        </ul>
+
+        <h3>SaveButNoMcp (Private Zone)</h3>
+        <ul>
+          <li>Matching URLs are <strong>recorded locally in your Vault as usual</strong>.</li>
+          <li>However, they are completely excluded when the MCP server (<code>VisibleStore</code>) answers queries—omitted from visit search, daily listings, domain statistics, and image lookups.</li>
+        </ul>
+      </section>
+
+      <section id="mcp-external-ai">
+        <h2>6. MCP and External AI Services</h2>
+        <p>
+          Storing data locally in your Vault is fundamentally separate from sharing data with external AI services through MCP (Model Context Protocol).
+        </p>
+        <ul>
+          <li><strong>Vault-Level MCP Publication Opt-In:</strong> MCP publication approval is tracked only for the single active Vault file identity and is separate from MCP client connection settings. Creating a new Vault, opening an unapproved Vault, switching to another Vault (including switching back to a previously approved Vault), restoring from a backup, converting Vault format (plain/encrypted conversion or Recovery Spell reissue), or opening a copied or replaced file always sets publication to <code>pending</code> (closed); the MCP server refuses access until you explicitly approve publication via the Native Host. Approval is preserved only when re-opening the exact same currently active approved Vault file. You can revoke approval at any time, which immediately closes MCP access and remains closed upon re-opening.</li>
+          <li><strong>Strictly Read-Only Capabilities:</strong> <code>memocampus-mcp</code> is strictly read-only and cannot modify your Vault or configuration. It exposes only 5 tools: searching public visits, listing public visits by day, retrieving public domain statistics, searching metadata of explicitly MCP-public images, and retrieving thumbnails (up to 256 KiB) of those public images.</li>
+          <li><strong>Protection of Private Data:</strong> Records matching <code>NeverSave</code> or <code>SaveButNoMcp</code>, images not individually marked MCP-public, images saved from incognito windows (which cannot be published to MCP), original image bytes, image tags, tab snapshots, navigation transition events, and saved MHTML pages are never exposed to MCP.</li>
+          <li><strong>Possible Transfer to External AI Providers:</strong> Once you approve MCP publication and connect an MCP client (such as a desktop AI application), data returned by MCP tools (such as visited URLs, titles, page metadata, or image thumbnails) is handed to that MCP client and <strong>may be transmitted to and processed by external AI model providers or cloud services</strong>.</li>
+          <li><strong>Scope of Memocampus's Control:</strong> Memocampus can only control what data its local MCP server returns. Once data is passed to an MCP client, Memocampus cannot control how that client or any external AI provider transmits, stores, retains, or uses that data; those practices are governed by the respective client's and AI provider's terms and privacy policies.</li>
+        </ul>
+      </section>
+
+      <section id="developer-handling">
+        <h2>7. Developer Data Handling and Network Activity</h2>
+        <p>
+          Based on the current implementation of the product components (extension, Native Messaging Host, VisibleStore, MCP server, tray supervisor, and installer) and this website:
+        </p>
+        <ul>
+          <li><strong>No Transmission to Developer Servers:</strong> Memocampus does not implement any feature that sends your browsing history, images, MHTML pages, or Vault files to developer-operated servers.</li>
+          <li><strong>No Analytics, Telemetry, Ads, or Sale of Data:</strong> We do not collect analytics or telemetry, run behavioral tracking, use tracking cookies, serve advertisements, or sell user data to third parties. This website also uses no external CDNs, external fonts, or analytics scripts.</li>
+          <li><strong>Observed Network Interactions &amp; External Boundaries:</strong>
+            <ul>
+              <li>When you explicitly save an image via the context menu, the extension may issue a <code>fetch</code> request to the target image URL to retrieve the image bytes for local storage.</li>
+              <li>When you explicitly enable the optional Streamable HTTP transport on <code>memocampus-mcp</code>, it listens strictly on local loopback (<code>127.0.0.1</code> or <code>[::1]</code>) with mandatory Bearer token authentication, no CORS headers, and rejection of requests carrying an <code>Origin</code> header.</li>
+              <li>When you connect an external MCP client, that client may communicate with external AI services.</li>
+              <li>Other browser or OS-level network activity (such as normal web browsing in Chrome, Chrome Web Store extension updates, or cloud syncing if you approve a cloud-synced folder for your Vault) occurs outside Memocampus's control.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+
+      <section id="management-deletion">
+        <h2>8. Data Management, Deletion, and Backups</h2>
+        <ul>
+          <li><strong>User Management and Deletion:</strong> From the extension UI, you can preview and delete individual visits, filtered visits, all records for a specific URL, saved images (individually, by tag, or all), and saved MHTML pages. Deletions are executed immediately without a recycle bin (SQLite <code>VACUUM</code> is not run automatically).</li>
+          <li><strong>Residual Data After Deletion:</strong> Deleting data in the application is not the same as permanently erasing it from your storage medium (such as an SSD or HDD). Memocampus performs standard SQLite <code>DELETE</code> operations (using the default <code>DELETE</code> rollback journal mode) and does not automatically run <code>VACUUM</code> or <code>secure_delete</code>. As a result, deleted data may remain in unallocated space (freelist pages) within the Vault file until overwritten by future writes, or briefly in a transient rollback journal during active transactions. Protection of residual data differs by Vault mode: in an encrypted Vault (SQLCipher 4), database pages—including freelist and journal pages—remain encrypted (though recovery may remain possible for someone holding the Vault key), whereas in a plain Vault, unallocated space remains unencrypted. Normal deletion in Memocampus does not guarantee secure physical erasure on storage media.</li>
+          <li><strong>Retention in Backups:</strong> Deleting items from your active Vault does not alter or remove data inside previously created backup files (<code>.sqlite3</code> or <code>.mcbackup</code>). Delete old backup files manually if you wish to remove them.</li>
+          <li><strong>Uninstallation and Your Vault:</strong> Uninstalling Memocampus via the Windows installer removes the application executables, tray autostart entry, and Native Messaging registration, but <strong>does not delete your Vault files or the <code>%LOCALAPPDATA%\Memocampus</code> data folder</strong> in order to protect your local data. To remove Vault files permanently, delete them manually from your filesystem.</li>
+        </ul>
+      </section>
+
+      <section id="cws-limited-use">
+        <h2>9. Chrome Web Store User Data Policy (Limited Use)</h2>
+        <p>
+          The Memocampus Chrome extension uses data accessed through Chrome extension APIs (visited URLs, tab information, page metadata, and user-initiated image/MHTML captures) solely to provide and maintain its prominently disclosed user-facing features: local Vault recording, search, organization, archival, and user-approved local read-only MCP integration.
+        </p>
+        <ul>
+          <li>We do not use user data for advertising, personalized targeting, creditworthiness determinations, data brokering, or any purpose unrelated to Memocampus's core user-facing functionality.</li>
+          <li>We do not sell or transfer user data to third parties. If you explicitly approve MCP publication and connect an external MCP client, queried data is passed to that client as described in Section 6.</li>
+          <li>User data stays on your local device; no human on the developer side accesses or reads your Vault data.</li>
+        </ul>
+        <div class="callout">
+          <p>
+            The use of information received from Google APIs will adhere to the Chrome Web Store User Data Policy, including the Limited Use requirements.
+          </p>
+        </div>
+      </section>
+
+      <section id="updates-contact">
+        <h2>10. Policy Updates and Contact</h2>
+        <ul>
+          <li><strong>Updates and Notice:</strong> We may update this Policy as features evolve or as legal and store policy requirements change. Updates will be published on this page with a revised "Last Updated" date, and material changes will be announced via our GitHub Organization or release notes.</li>
+          <li><strong>Contact:</strong> For inquiries regarding this Policy or Memocampus, please contact <a href="mailto:memocampus.dev@gmail.com">memocampus.dev@gmail.com</a>. Project information is also available via our GitHub Organization (<a href="https://github.com/Memocampus">https://github.com/Memocampus</a>).</li>
+        </ul>
+      </section>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>Copyright &copy; 2026 Memocampus</div>
+      <div class="footer-links">
+        <a href="../">Home</a>
+        <a href="./">Privacy Policy</a>
+        <a href="../../privacy/" hreflang="ja" lang="ja">日本語</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

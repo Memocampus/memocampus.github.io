@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memocampus — Webの記憶を、自分の手元に。</title>
+  <meta name="description" content="Memocampusは、Web閲覧の記録・画像・ページをローカルVaultに蓄積し、後から検索・再発見するためのローカルファースト・プライバシー重視ソフトウェアです。">
+  <link rel="canonical" href="https://memocampus.github.io/">
+  <link rel="alternate" hreflang="ja" href="https://memocampus.github.io/">
+  <link rel="alternate" hreflang="en" href="https://memocampus.github.io/en/">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">本文へスキップ</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./">
+        <span>Memocampus</span>
+        <span class="brand-version">v0.8.0 準備中</span>
+      </a>
+      <nav class="site-nav" aria-label="メインナビゲーション">
+        <a href="./" aria-current="page">トップ</a>
+        <a href="privacy/">プライバシーポリシー</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+        <a class="lang-switch" href="en/" hreflang="en" lang="en">English</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="status-badge">v0.8.0 — Chrome Web Store 審査申請準備中（未公開）</div>
+      <h1 id="hero-title">Webの記憶を、自分の手元に。</h1>
+      <p class="hero-lead">
+        Memocampusは、日々のWeb閲覧の記録や手動保存した画像・ページを自分のPC内のローカルVaultに蓄積し、後から検索・再発見するための個人向けソフトウェアです。クラウドサービスに履歴を預けるのではなく、手元の環境で管理・保護することを前提に設計しています。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="privacy/">プライバシーポリシーを読む</a>
+        <a class="btn btn-secondary" href="https://github.com/Memocampus">GitHub Organization</a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="overview-heading">
+      <h2 id="overview-heading">Memocampusとは</h2>
+      <p>
+        Memocampusは、単なるブックマーク管理ツールではありません。「いつ・どのページを見たか」という閲覧の流れ、ページのタイトルやメタデータ、そして残しておきたい画像やMHTMLスナップショットをローカルのデータベース（Vault）に記録し、記憶をたどるように振り返るためのツールです。
+      </p>
+      <p>
+        Google Chrome拡張機能とWindows向けローカルコンポーネント（Native Messaging Host・トレイ常駐補助・読み取り専用MCPサーバー）を組み合わせて動作します。自動記録はインストール直後に無断で開始されることはなく、Vaultの作成または選択後に利用者自身が明示的に開始します。
+      </p>
+    </section>
+
+    <section class="section" aria-labelledby="features-heading">
+      <h2 id="features-heading">主要機能</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>閲覧記録と検索・カレンダー振り返り</h3>
+          <p>
+            通常ウィンドウの <code>http://</code> / <code>https://</code> ページ閲覧（URL・タイトル・日時・ページメタデータおよび遷移情報）を記録します。サイドパネルや履歴ビューからキーワード検索や日付・カレンダーで再発見できます。
+          </p>
+        </article>
+        <article class="card">
+          <h3>手動保存（画像・MHTML・タブスナップショット）</h3>
+          <p>
+            右クリックメニューから画像（原本・サムネイル・タグ付け対応）やWebページのMHTMLスナップショットを手動保存できます。サイドパネルから開いている通常タブの一括スナップショット記録も可能です。
+          </p>
+        </article>
+        <article class="card">
+          <h3>データの管理・エクスポート・削除</h3>
+          <p>
+            保存した訪問履歴・画像・MHTMLページはプレビュー確認のうえで個別に削除できます。画像やMHTMLのエクスポート、Vaultのバックアップおよび新規ファイルへの復元にも対応しています。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="vault-heading">
+      <h2 id="vault-heading">ローカルVaultと暗号化</h2>
+      <p>
+        記録されたデータは開発元のサーバーではなく、利用者自身のPC上の単一SQLiteファイル（ローカルVault）に保存されます。<code>%LOCALAPPDATA%\Memocampus\memocampus.sqlite3</code> は初期設定時の既定候補パスであり、インストールや起動時に暗黙に作成されることはありません。Vaultは利用者が明示的に作成または既存ファイルを選択して利用し、設定済みVaultが見つからない場合も自動再作成は行いません（ローカルフォルダの選択が可能で、ネットワークドライブ等は禁止、クラウド同期フォルダ等は明示的な承認が必要です）。
+      </p>
+      <ul>
+        <li><strong>SQLCipher 4 暗号化：</strong>新規作成される暗号化VaultはSQLCipher 4でデータベース全体を暗号化します。</li>
+        <li><strong>Windows DPAPI と Recovery Spell：</strong>日常利用時はWindows DPAPI（ユーザー保護）で鍵をキャッシュし、復元や別環境での復号には作成時に一度だけ表示される43文字の「Recovery Spell（ふっかつのじゅもん）」を使用します。</li>
+        <li><strong>バックアップと復元：</strong>通常バックアップおよびパスワード保護バックアップ（Argon2id + XChaCha20-Poly1305）に対応し、復元時は既存Vaultを上書きせず新しいファイルを作成します。</li>
+      </ul>
+      <div class="callout">
+        <p>
+          <strong>セキュリティ上の注意：</strong>暗号化はファイル保存時の保護を高める仕組みであり、同一Windowsユーザー権限で動作するマルウェアやロック解除済み端末への不正アクセス、Recovery Spellの漏えいなど、あらゆる脅威を防ぐものではありません。詳細は<a href="privacy/#storage-encryption">プライバシーポリシー（保存場所と暗号化）</a>をご確認ください。
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="privacy-gate-heading">
+      <h2 id="privacy-gate-heading">Privacy Gate</h2>
+      <p>
+        Memocampusは、記録してはいけない領域と外部AIへ渡したくない領域を分けるため、Privacy Gate（ポリシーエンジン）を備えています。ポリシーが未初期化または読み込めない場合は記録を停止するフェイルクローズ設計です。
+      </p>
+      <div class="card-grid">
+        <article class="card">
+          <h3>NeverSave（Blind Zone）</h3>
+          <p>
+            認証画面、機密クエリパラメータ、行政ポータル、Webメール、主要AIチャット等の既定ルールおよびカスタムルールに一致するURLの自動記録を抑止します。なお、既存のVault記録を自動削除したり、利用者の明示的な画像・MHTML手動保存を全面禁止したりする機能ではありません。
+          </p>
+        </article>
+        <article class="card">
+          <h3>SaveButNoMcp（Private Zone）</h3>
+          <p>
+            ローカルのVaultには通常どおり記録しつつ、MCP（AI連携）からの検索・集計・参照対象からは完全に除外する領域です。
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="mcp-heading">
+      <h2 id="mcp-heading">MCP連携（読み取り専用・明示的承認）</h2>
+      <p>
+        Memocampusは、ローカルのMCPサーバー（<code>memocampus-mcp</code>）を通じて、対応するAIクライアントからVault内の公開許可済みデータを読み取り専用で検索できる機能を提供します。
+      </p>
+      <ul>
+        <li><strong>既定は非公開・明示的承認：</strong>新規作成・別Vaultへの切替（以前承認したVaultへ戻る場合を含む）・復元・形式変換では原則MCP非公開（<code>pending</code>）となり、利用者が明示的に公開承認するまで参照できません（現在アクティブな承認済みVaultと同一ファイルをそのまま開き直す場合のみ承認が維持されます）。公開承認はいつでも取り消せます。詳細は<a href="privacy/#mcp-external-ai">プライバシーポリシー（MCPと外部AIサービス）</a>をご確認ください。</li>
+        <li><strong>画像も個別承認：</strong>保存した画像は既定でMCP非公開です。利用者が個別に公開設定した非シークレット画像のみ、サムネイルおよびメタデータが参照対象になります（原本データやタグ、MHTMLページはMCPに公開されません）。</li>
+        <li><strong>外部AIサービスとの境界：</strong>Memocampus自体はローカル（<code>stdio</code> またはループバック限定HTTP）で動作しますが、利用者がMCPクライアントを接続して検索結果を取得した場合、その情報はMCPクライアントから外部AIプロバイダーへ送信される可能性があります。</li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="status-heading">
+      <h2 id="status-heading">対応環境と現在の公開状況</h2>
+      <div class="callout callout-warn">
+        <p>
+          <strong>公開前のご案内：</strong>Memocampus v0.8.0 は現在、Chrome Web Store への審査申請準備中です。現時点ではChrome Web Storeでの一般公開およびインストーラー配布は開始していません。
+        </p>
+      </div>
+      <dl class="meta-list">
+        <dt>製品名</dt>
+        <dd>Memocampus</dd>
+        <dt>予定バージョン</dt>
+        <dd>v0.8.0</dd>
+        <dt>公開・申請状況</dt>
+        <dd>Chrome Web Store 審査申請準備中（未公開）</dd>
+        <dt>Chrome 拡張機能 ID</dt>
+        <dd><code>cdklofjfcjagkaclekmicliailmlnfla</code></dd>
+        <dt>対応環境</dt>
+        <dd>Windows および Google Chrome（Windows向けローカルコンポーネントとの連携が必要）</dd>
+        <dt>GitHub</dt>
+        <dd><a href="https://github.com/Memocampus">https://github.com/Memocampus</a></dd>
+        <dt>プライバシーポリシー</dt>
+        <dd><a href="privacy/">日本語版</a> / <a href="en/privacy/" hreflang="en">English</a></dd>
+        <dt>お問い合わせ</dt>
+        <dd>
+          メール：<a href="mailto:memocampus.dev@gmail.com">memocampus.dev@gmail.com</a> ／ GitHub Organization：<a href="https://github.com/Memocampus">https://github.com/Memocampus</a>
+        </dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>Copyright &copy; 2026 Memocampus</div>
+      <div class="footer-links">
+        <a href="./">トップ</a>
+        <a href="privacy/">プライバシーポリシー</a>
+        <a href="en/" hreflang="en" lang="en">English</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

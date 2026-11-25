@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Memocampus — Keep your web memory on your own device.</title>
+  <meta name="description" content="Memocampus is a local-first, privacy-focused software tool for storing your web browsing records, saved images, and MHTML pages in a local Vault for later search and rediscovery.">
+  <link rel="canonical" href="https://memocampus.github.io/en/">
+  <link rel="alternate" hreflang="ja" href="https://memocampus.github.io/">
+  <link rel="alternate" hreflang="en" href="https://memocampus.github.io/en/">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="./">
+        <span>Memocampus</span>
+        <span class="brand-version">v0.8.0 Pre-release</span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="./" aria-current="page">Home</a>
+        <a href="privacy/">Privacy Policy</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+        <a class="lang-switch" href="../" hreflang="ja" lang="ja">日本語</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="status-badge">v0.8.0 — Preparing for Chrome Web Store Review (Not Yet Published)</div>
+      <h1 id="hero-title">Keep your web memory on your own device.</h1>
+      <p class="hero-lead">
+        Memocampus is personal software that stores your web browsing records and manually saved images and pages in a local Vault on your own PC so you can search and rediscover them later. Rather than handing your history to a cloud service, it is designed to keep your data under your local control.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="privacy/">Read Privacy Policy</a>
+        <a class="btn btn-secondary" href="https://github.com/Memocampus">GitHub Organization</a>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="overview-heading">
+      <h2 id="overview-heading">What is Memocampus?</h2>
+      <p>
+        Memocampus is not a simple bookmark manager. It records the flow of what you visited and when, along with page titles, page metadata, and images or MHTML page snapshots you choose to preserve, storing everything in a local database (Vault) so you can revisit your web memory later.
+      </p>
+      <p>
+        It works as a combination of a Google Chrome extension and local Windows components (Native Messaging Host, tray supervisor, and a read-only MCP server). Automatic recording never starts silently upon installation; you explicitly start recording only after creating or selecting a Vault.
+      </p>
+    </section>
+
+    <section class="section" aria-labelledby="features-heading">
+      <h2 id="features-heading">Key Features</h2>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Browsing Records, Search &amp; Calendar View</h3>
+          <p>
+            Records standard-window <code>http://</code> and <code>https://</code> visits (URL, title, timestamp, page metadata, and navigation transitions). Rediscover past visits via keyword search or calendar filtering in the side panel and full history view.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Manual Saving (Images, MHTML &amp; Tab Snapshots)</h3>
+          <p>
+            Save images (with original bytes, thumbnails, and local tags) or full MHTML page snapshots via the context menu. You can also capture a manual snapshot of all open non-incognito tabs from the side panel.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Data Management, Export &amp; Deletion</h3>
+          <p>
+            Review and delete individual visits, filtered visits, URLs, saved images, or MHTML pages. Export saved images and MHTML files, and create or restore Vault backups into new files without overwriting existing ones.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="vault-heading">
+      <h2 id="vault-heading">Local Vault and Encryption</h2>
+      <p>
+        Recorded data is stored not on a developer-operated server, but in a single local SQLite file (local Vault) on your PC. <code>%LOCALAPPDATA%\Memocampus\memocampus.sqlite3</code> is only a suggested default path during setup and is never created silently upon installation or startup. You explicitly create a Vault or select an existing file, and Memocampus will not automatically recreate a configured Vault if it goes missing (you may also choose a custom local folder; network drives are blocked and cloud-synced folders require explicit approval).
+      </p>
+      <ul>
+        <li><strong>SQLCipher 4 Encryption:</strong> Newly created encrypted Vaults encrypt the entire SQLite database using SQLCipher 4.</li>
+        <li><strong>Windows DPAPI &amp; Recovery Spell:</strong> For daily convenience, the Vault key is cached using user-scoped Windows DPAPI. Recovering or opening the Vault on another environment uses a 43-character Recovery Spell shown once at creation.</li>
+        <li><strong>Backup &amp; Restore:</strong> Supports standard and password-protected backups (Argon2id + XChaCha20-Poly1305). Restoring always creates a new Vault file rather than overwriting an existing one.</li>
+      </ul>
+      <div class="callout">
+        <p>
+          <strong>Security Notice:</strong> Encryption strengthens protection of the Vault file at rest, but it does not defend against every threat—such as malware running under the same Windows user account, unauthorized access to an unlocked device, or a leaked Recovery Spell. See the <a href="privacy/#storage-encryption">Privacy Policy (Storage Location and Encryption)</a> for details.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="privacy-gate-heading">
+      <h2 id="privacy-gate-heading">Privacy Gate</h2>
+      <p>
+        Memocampus includes a Privacy Gate (policy engine) to separate areas you never want recorded automatically from areas you want kept local and hidden from AI tools. It is designed to fail closed: if the policy is uninitialized or unreadable, automatic recording stops.
+      </p>
+      <div class="card-grid">
+        <article class="card">
+          <h3>NeverSave (Blind Zone)</h3>
+          <p>
+            Prevents automatic recording for URLs matching built-in rules (such as authentication pages, credential parameters, government portals, webmail, and major AI chats) or your custom rules. Note that NeverSave does not automatically delete existing Vault records, nor does it block explicit manual image or MHTML page saves.
+          </p>
+        </article>
+        <article class="card">
+          <h3>SaveButNoMcp (Private Zone)</h3>
+          <p>
+            Saves visits locally in your Vault as usual, while completely excluding them from MCP search, statistics, and retrieval.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="mcp-heading">
+      <h2 id="mcp-heading">MCP Integration (Read-Only, Explicit Opt-In)</h2>
+      <p>
+        Memocampus includes a local, strictly read-only MCP server (<code>memocampus-mcp</code>) that lets compatible AI clients query only the Vault data you have explicitly approved for MCP exposure.
+      </p>
+      <ul>
+        <li><strong>Closed by Default &amp; Explicit Opt-In:</strong> Newly created, switched (including returning to a previously approved Vault), restored, or converted Vaults start as MCP-closed (<code>pending</code>) until you explicitly approve publication (approval is preserved only when re-opening the exact same currently active approved Vault file). You can revoke approval at any time. See the <a href="privacy/#mcp-external-ai">Privacy Policy (MCP and External AI Services)</a> for details.</li>
+        <li><strong>Per-Image Opt-In:</strong> Saved images default to private. Only non-incognito images you individually mark as MCP-public can be queried, and only their metadata and thumbnails are returned (original image bytes, tags, and saved MHTML pages are not exposed to MCP).</li>
+        <li><strong>Boundary with External AI Services:</strong> While Memocampus itself operates locally (over <code>stdio</code> or opt-in loopback-only HTTP), any data returned to an MCP client may be sent by that client to external AI providers according to their own policies.</li>
+      </ul>
+    </section>
+
+    <section class="section" aria-labelledby="status-heading">
+      <h2 id="status-heading">Supported Environment &amp; Release Status</h2>
+      <div class="callout callout-warn">
+        <p>
+          <strong>Pre-Release Notice:</strong> Memocampus v0.8.0 is currently being prepared for Chrome Web Store review. Public Chrome Web Store listing and installer distribution are not yet available.
+        </p>
+      </div>
+      <dl class="meta-list">
+        <dt>Product Name</dt>
+        <dd>Memocampus</dd>
+        <dt>Planned Version</dt>
+        <dd>v0.8.0</dd>
+        <dt>Release Status</dt>
+        <dd>Preparing for Chrome Web Store review (not yet published)</dd>
+        <dt>Chrome Extension ID</dt>
+        <dd><code>cdklofjfcjagkaclekmicliailmlnfla</code></dd>
+        <dt>Supported Platform</dt>
+        <dd>Windows and Google Chrome (requires local Windows companion components)</dd>
+        <dt>GitHub</dt>
+        <dd><a href="https://github.com/Memocampus">https://github.com/Memocampus</a></dd>
+        <dt>Privacy Policy</dt>
+        <dd><a href="privacy/">English</a> / <a href="../privacy/" hreflang="ja">日本語</a></dd>
+        <dt>Contact</dt>
+        <dd>
+          Email: <a href="mailto:memocampus.dev@gmail.com">memocampus.dev@gmail.com</a> / GitHub Organization: <a href="https://github.com/Memocampus">https://github.com/Memocampus</a>
+        </dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>Copyright &copy; 2026 Memocampus</div>
+      <div class="footer-links">
+        <a href="./">Home</a>
+        <a href="privacy/">Privacy Policy</a>
+        <a href="../" hreflang="ja" lang="ja">日本語</a>
+        <a href="https://github.com/Memocampus">GitHub</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
