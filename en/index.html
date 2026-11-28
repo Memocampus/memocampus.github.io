@@ -8,6 +8,7 @@
   <link rel="canonical" href="https://memocampus.github.io/en/">
   <link rel="alternate" hreflang="ja" href="https://memocampus.github.io/">
   <link rel="alternate" hreflang="en" href="https://memocampus.github.io/en/">
+  <link rel="icon" type="image/png" href="../assets/icon.png">
   <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
@@ -16,11 +17,12 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="./">
-        <span>Memocampus</span>
-        <span class="brand-version">v0.8.0 Pre-release</span>
+        <img class="brand-logo" src="../assets/logo.svg" alt="Memocampus" width="646" height="93">
+        <span class="brand-version">v0.1.0</span>
       </a>
       <nav class="site-nav" aria-label="Main navigation">
         <a href="./" aria-current="page">Home</a>
+        <a href="#download-status">Download</a>
         <a href="privacy/">Privacy Policy</a>
         <a href="https://github.com/Memocampus">GitHub</a>
         <a class="lang-switch" href="../" hreflang="ja" lang="ja">日本語</a>
@@ -30,15 +32,25 @@
 
   <main id="main" class="container">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="status-badge">v0.8.0 — Preparing for Chrome Web Store Review (Not Yet Published)</div>
+      <div class="status-badge">v0.1.0 Now Available — Chrome Web Store &amp; Windows Release</div>
+      <div class="hero-copy">
+        <img src="../assets/copy.svg" alt="No More Bookmarks. Your Web. Your Memory. Your Vault." width="851" height="318">
+      </div>
       <h1 id="hero-title">Keep your web memory on your own device.</h1>
       <p class="hero-lead">
         Memocampus is personal software that stores your web browsing records and manually saved images and pages in a local Vault on your own PC so you can search and rediscover them later. Rather than handing your history to a cloud service, it is designed to keep your data under your local control.
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="privacy/">Read Privacy Policy</a>
-        <a class="btn btn-secondary" href="https://github.com/Memocampus">GitHub Organization</a>
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/memocampus/cdklofjfcjagkaclekmicliailmlnfla">Add from Chrome Web Store</a>
+        <a class="btn btn-secondary" href="https://github.com/motoki-kentaro/Memocampus/releases/tag/v0.1.0">Download Windows v0.1.0</a>
       </div>
+      <p class="hero-note">
+        Both the Chrome extension and the local Windows companion components (via GitHub Release) are required.
+      </p>
+      <figure class="hero-visual">
+        <img src="../assets/hero.png" alt="Memocampus history timeline, calendar, domain filter, and Chrome side panel interface" width="1907" height="940">
+        <figcaption>Memocampus history timeline, calendar view, and Chrome side panel</figcaption>
+      </figure>
     </section>
 
     <section class="section" aria-labelledby="overview-heading">
@@ -125,24 +137,38 @@
       </ul>
     </section>
 
-    <section class="section" aria-labelledby="status-heading">
-      <h2 id="status-heading">Supported Environment &amp; Release Status</h2>
+    <section id="download-status" class="section" aria-labelledby="status-heading">
+      <h2 id="status-heading">Download, Supported Environment &amp; Known Limitations</h2>
+      <p>
+        Memocampus v0.1.0 is now publicly available. Install the extension from the Chrome Web Store and download the Windows installer from GitHub Releases.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/memocampus/cdklofjfcjagkaclekmicliailmlnfla">Chrome Web Store (Extension)</a>
+        <a class="btn btn-secondary" href="https://github.com/motoki-kentaro/Memocampus/releases/tag/v0.1.0">GitHub Release (Windows v0.1.0)</a>
+      </div>
       <div class="callout callout-warn">
         <p>
-          <strong>Pre-Release Notice:</strong> Memocampus v0.8.0 is currently being prepared for Chrome Web Store review. Public Chrome Web Store listing and installer distribution are not yet available.
+          <strong>Unsigned Installer Notice:</strong> The Windows installer (v0.1.0) is currently unsigned, so Windows Defender SmartScreen or your browser may display a warning when downloading or running it. Please verify that you are downloading it from the official GitHub Release page above.
         </p>
       </div>
       <dl class="meta-list">
         <dt>Product Name</dt>
         <dd>Memocampus</dd>
-        <dt>Planned Version</dt>
-        <dd>v0.8.0</dd>
-        <dt>Release Status</dt>
-        <dd>Preparing for Chrome Web Store review (not yet published)</dd>
-        <dt>Chrome Extension ID</dt>
-        <dd><code>cdklofjfcjagkaclekmicliailmlnfla</code></dd>
-        <dt>Supported Platform</dt>
-        <dd>Windows and Google Chrome (requires local Windows companion components)</dd>
+        <dt>Latest Version</dt>
+        <dd>v0.1.0 (Public Release)</dd>
+        <dt>Chrome Web Store</dt>
+        <dd><a href="https://chromewebstore.google.com/detail/memocampus/cdklofjfcjagkaclekmicliailmlnfla">Memocampus — Chrome Web Store</a> (Extension ID: <code>cdklofjfcjagkaclekmicliailmlnfla</code>)</dd>
+        <dt>Windows Release</dt>
+        <dd><a href="https://github.com/motoki-kentaro/Memocampus/releases/tag/v0.1.0">GitHub Release v0.1.0</a></dd>
+        <dt>Supported Environment</dt>
+        <dd>
+          <ul>
+            <li><strong>Windows 11 x64:</strong> Verified</li>
+            <li><strong>Windows 10:</strong> Unverified</li>
+            <li><strong>Windows Server:</strong> Not supported</li>
+            <li><strong>Browser:</strong> Google Chrome (requires local Windows companion components)</li>
+          </ul>
+        </dd>
         <dt>GitHub</dt>
         <dd><a href="https://github.com/Memocampus">https://github.com/Memocampus</a></dd>
         <dt>Privacy Policy</dt>
@@ -152,6 +178,10 @@
           Email: <a href="mailto:memocampus.dev@gmail.com">memocampus.dev@gmail.com</a> / GitHub Organization: <a href="https://github.com/Memocampus">https://github.com/Memocampus</a>
         </dd>
       </dl>
+      <h3>Known Limitations</h3>
+      <ul>
+        <li><strong>Multiple Chrome Profiles Under the Same Windows User:</strong> Under the current design, multiple Chrome profiles under the same Windows user account share the same Active Vault (Issue #105). Using separate independent Vaults per Chrome profile is not currently supported.</li>
+      </ul>
     </section>
   </main>
 

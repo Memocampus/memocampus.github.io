@@ -8,6 +8,7 @@
   <link rel="canonical" href="https://memocampus.github.io/">
   <link rel="alternate" hreflang="ja" href="https://memocampus.github.io/">
   <link rel="alternate" hreflang="en" href="https://memocampus.github.io/en/">
+  <link rel="icon" type="image/png" href="assets/icon.png">
   <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -16,11 +17,12 @@
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="./">
-        <span>Memocampus</span>
-        <span class="brand-version">v0.8.0 準備中</span>
+        <img class="brand-logo" src="assets/logo.svg" alt="Memocampus" width="646" height="93">
+        <span class="brand-version">v0.1.0</span>
       </a>
       <nav class="site-nav" aria-label="メインナビゲーション">
         <a href="./" aria-current="page">トップ</a>
+        <a href="#download-status">入手・対応環境</a>
         <a href="privacy/">プライバシーポリシー</a>
         <a href="https://github.com/Memocampus">GitHub</a>
         <a class="lang-switch" href="en/" hreflang="en" lang="en">English</a>
@@ -30,15 +32,25 @@
 
   <main id="main" class="container">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="status-badge">v0.8.0 — Chrome Web Store 審査申請準備中（未公開）</div>
+      <div class="status-badge">v0.1.0 正式公開 — Chrome Web Store / Windows版リリース</div>
+      <div class="hero-copy">
+        <img src="assets/copy.svg" alt="No More Bookmarks. Your Web. Your Memory. Your Vault." width="851" height="318">
+      </div>
       <h1 id="hero-title">Webの記憶を、自分の手元に。</h1>
       <p class="hero-lead">
         Memocampusは、日々のWeb閲覧の記録や手動保存した画像・ページを自分のPC内のローカルVaultに蓄積し、後から検索・再発見するための個人向けソフトウェアです。クラウドサービスに履歴を預けるのではなく、手元の環境で管理・保護することを前提に設計しています。
       </p>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="privacy/">プライバシーポリシーを読む</a>
-        <a class="btn btn-secondary" href="https://github.com/Memocampus">GitHub Organization</a>
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/memocampus/cdklofjfcjagkaclekmicliailmlnfla">Chrome Web Store で追加</a>
+        <a class="btn btn-secondary" href="https://github.com/motoki-kentaro/Memocampus/releases/tag/v0.1.0">Windows版 v0.1.0 をダウンロード</a>
       </div>
+      <p class="hero-note">
+        ご利用には Chrome 拡張機能と Windows 向けローカルコンポーネント（GitHub Release 配布）の両方が必要です。
+      </p>
+      <figure class="hero-visual">
+        <img src="assets/hero.png" alt="Memocampus の履歴タイムライン、カレンダー、ドメイン絞り込みおよび Chrome サイドパネルの画面イメージ" width="1907" height="940">
+        <figcaption>Memocampus の履歴タイムライン・カレンダー振り返り画面と Chrome サイドパネル</figcaption>
+      </figure>
     </section>
 
     <section class="section" aria-labelledby="overview-heading">
@@ -125,24 +137,38 @@
       </ul>
     </section>
 
-    <section class="section" aria-labelledby="status-heading">
-      <h2 id="status-heading">対応環境と現在の公開状況</h2>
+    <section id="download-status" class="section" aria-labelledby="status-heading">
+      <h2 id="status-heading">入手方法・対応環境・既知の制限</h2>
+      <p>
+        Memocampus v0.1.0 を正式公開しました。以下の Chrome Web Store から拡張機能を追加し、GitHub Release から Windows 向けインストーラーを入手してご利用ください。
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="https://chromewebstore.google.com/detail/memocampus/cdklofjfcjagkaclekmicliailmlnfla">Chrome Web Store（拡張機能）</a>
+        <a class="btn btn-secondary" href="https://github.com/motoki-kentaro/Memocampus/releases/tag/v0.1.0">GitHub Release（Windows版 v0.1.0）</a>
+      </div>
       <div class="callout callout-warn">
         <p>
-          <strong>公開前のご案内：</strong>Memocampus v0.8.0 は現在、Chrome Web Store への審査申請準備中です。現時点ではChrome Web Storeでの一般公開およびインストーラー配布は開始していません。
+          <strong>未署名インストーラーに関するご注意：</strong>Windows版インストーラー（v0.1.0）は現在コード署名されていないため、ダウンロードや実行時に Windows Defender SmartScreen 等の警告が表示される場合があります。上記の公式 GitHub Release ページから入手したファイルであることを確認のうえご利用ください。
         </p>
       </div>
       <dl class="meta-list">
         <dt>製品名</dt>
         <dd>Memocampus</dd>
-        <dt>予定バージョン</dt>
-        <dd>v0.8.0</dd>
-        <dt>公開・申請状況</dt>
-        <dd>Chrome Web Store 審査申請準備中（未公開）</dd>
-        <dt>Chrome 拡張機能 ID</dt>
-        <dd><code>cdklofjfcjagkaclekmicliailmlnfla</code></dd>
+        <dt>最新バージョン</dt>
+        <dd>v0.1.0（正式公開）</dd>
+        <dt>Chrome Web Store</dt>
+        <dd><a href="https://chromewebstore.google.com/detail/memocampus/cdklofjfcjagkaclekmicliailmlnfla">Memocampus — Chrome Web Store</a>（拡張機能 ID：<code>cdklofjfcjagkaclekmicliailmlnfla</code>）</dd>
+        <dt>Windows版リリース</dt>
+        <dd><a href="https://github.com/motoki-kentaro/Memocampus/releases/tag/v0.1.0">GitHub Release v0.1.0</a></dd>
         <dt>対応環境</dt>
-        <dd>Windows および Google Chrome（Windows向けローカルコンポーネントとの連携が必要）</dd>
+        <dd>
+          <ul>
+            <li><strong>Windows 11 x64：</strong>動作確認済み</li>
+            <li><strong>Windows 10：</strong>未検証</li>
+            <li><strong>Windows Server：</strong>サポート対象外</li>
+            <li><strong>ブラウザ：</strong>Google Chrome（Windows向けローカルコンポーネントとの連携が必要）</li>
+          </ul>
+        </dd>
         <dt>GitHub</dt>
         <dd><a href="https://github.com/Memocampus">https://github.com/Memocampus</a></dd>
         <dt>プライバシーポリシー</dt>
@@ -152,6 +178,10 @@
           メール：<a href="mailto:memocampus.dev@gmail.com">memocampus.dev@gmail.com</a> ／ GitHub Organization：<a href="https://github.com/Memocampus">https://github.com/Memocampus</a>
         </dd>
       </dl>
+      <h3>既知の制限</h3>
+      <ul>
+        <li><strong>同一 Windows ユーザー内の複数 Chrome プロファイル：</strong>現行仕様では、同一の Windows ユーザーアカウント内で複数の Chrome プロファイルを使用している場合、各プロファイル間で同じ Active Vault を共有します（Issue #105）。プロファイルごとに独立した Vault を切り替えて使用する構成には対応していません。</li>
+      </ul>
     </section>
   </main>
 
