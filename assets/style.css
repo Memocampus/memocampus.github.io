@@ -260,7 +260,6 @@ main {
   margin: 0 0 1.4rem;
   font-size: 1.05rem;
   color: var(--text-muted);
-  max-width: 68ch;
 }
 
 .hero-actions {
